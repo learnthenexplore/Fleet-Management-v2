@@ -1,0 +1,17 @@
+.map-container {
+  width: 100%;
+  height: 200px; /* Set desired height */
+  border-radius: 12px;
+  overflow: hidden;
+  /* padding: 10px; */
+ 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+/* Optional: Make map container responsive */
+@media (max-width: 768px) {
+  .map-container {
+    height: 350px;
+  }
+}

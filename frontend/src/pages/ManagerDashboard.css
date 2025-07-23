@@ -1,0 +1,126 @@
+/* Layout */
+.dashboard-container {
+  display: flex;
+  font-family: sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #1E1E2D;
+  color: white;
+  width: 250px;
+  min-width: 250px;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: width 0.3s ease;
+  position: relative;
+  z-index: 1000;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  min-width: 60px;
+}
+
+/* Top Sidebar */
+.top-sidebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  white-space: nowrap;
+}
+
+/* Toggle Button */
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Sidebar Navigation */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.sidebar-item {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ccc;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-item:hover {
+  color: white;
+  background-color: #2d2d44;
+}
+
+.sidebar-item.active {
+  background-color: #fff;
+  color: #1E1E2D;
+  font-weight: bold;
+}
+
+/* Hide text when collapsed */
+.sidebar.collapsed .sidebar-title,
+.sidebar.collapsed .sidebar-item,
+.sidebar.collapsed .logout {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Logout button */
+.logout {
+  color: #f56565;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.logout:hover {
+  color: #ff7b7b;
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  background-color: #F8F9FD;
+  padding: 0px;
+  overflow-y: auto;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transform: translateX(0);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .main {
+    margin-left: 60px; /* account for collapsed sidebar */
+  }
+
+  .sidebar:not(.collapsed) + .main {
+    margin-left: 250px;
+  }
+}
