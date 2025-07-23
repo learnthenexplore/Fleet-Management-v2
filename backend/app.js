@@ -14,7 +14,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://fleet-management-1-dpbb.onrender.com",
+      "https://fleet-management-v2-1.onrender.com",
       "http://localhost:5173",
     ],
      
