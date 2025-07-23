@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { setUser } from './redux/slices/authSlice';
 import { connectSocket } from './sockets/socket';
 
+
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -39,7 +40,7 @@ function App() {
 
       <Routes>
         <Route
-          path="/"
+          path="/"  
           element={
             user
               ? user.role === 'operator'
