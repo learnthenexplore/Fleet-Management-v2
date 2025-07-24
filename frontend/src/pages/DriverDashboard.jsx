@@ -92,23 +92,39 @@ const DriverDashboard = () => {
   };
 
   const handleStartTripDirect = async () => {
-    const row = newTripRow;
-    if (!row.startTime || !row.machine || !row.material || !row.site) {
-      return alert('Please fill all fields');
-    }
+  const row = newTripRow;
+  console.log('Time is:', row.startTime);
+  if (!row.startTime || !row.machine || !row.material || !row.site) {
+    return alert('Please fill all fields');
+  }
 
-    const [hh, mm] = row.startTime.split(':');
-    const startTimeDate = new Date();
-    startTimeDate.setHours(Number(hh), Number(mm), 0, 0);
+  // Parse as IST
+const [hh, mm] = row.startTime.split(':');
+console.log('Parsed time:', hh, mm);
+const now = new Date();
+// Always create the date in UTC (browser independent)
+const istDateUTC = new Date(Date.UTC(
+  now.getFullYear(),
+  now.getMonth(),
+  now.getDate(),
+  Number(hh),
+  Number(mm),
+  0,
+  0
+));
+// Convert IST to UTC by subtracting 5 hours 30 minutes
+const utcDate = new Date(istDateUTC.getTime() - (330 * 60000)); // IST to UTC
+console.log('IST Date (UTC base):', istDateUTC);
+console.log('UTC Date:', utcDate);
 
-    const newRow = {
-      startTime: startTimeDate,
-      machine: row.machine,
-      material: row.material,
-      site: row.site,
-      status: 'running',
-      path: [],
-    };
+const newRow = {
+  startTime: utcDate, // store as UTC
+  machine: row.machine,
+  material: row.material,
+  site: row.site,
+  status: 'running',
+  path: [],
+};
 
     try {
       const { data } = await axios.post(`${BASE_URL}/api/form/${formId}/addTrip`, newRow);
