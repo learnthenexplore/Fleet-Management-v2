@@ -1,5 +1,6 @@
-import React from 'react';
+ import React from 'react';
 import { useSelector } from 'react-redux';
+import './FullVehicleReportView.css';
 
 const checklistItems = [
   'पार्किंग ब्रेक', 'लाइट्स और हॉर्न', 'डैशबोर्ड',
@@ -96,71 +97,127 @@ const StartYourDaySection = ({
   };
 
   return (
+    <div className="form-wrapper">
     <div className="a4-form">
+      {/* Header Section */}
       <div className="section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span>📝 प्रारंभिक प्री-स्टार्ट चेक लिस्ट</span>
-        <button type="button" onClick={onClose} style={{ fontSize: '16px', background: 'transparent', border: 'none', cursor: 'pointer' }}>⬅ Back</button>
+        
+        <button
+          type="button"
+          onClick={onClose}
+          className="back-btn"
+        >
+          ⬅ Back
+        </button>
       </div>
 
-      <div className="form-header">
+      <div className="form-header section-card">
         <h2>त्रिवेणी सैनिक माइनिंग प्राइवेट लिमिटेड </h2>
         <h3>पकरी बरबडीह  कोल माइंस प्रोजेक्ट</h3>
         <h4>प्रारंभिक प्री-स्टार्ट चेक लिस्ट</h4>
       </div>
 
+      {/* Checklist Section */}
       <div className="checklist-buttons">
         <button type="button" onClick={handleSelectAllOk}>✅ Select All OK</button>
         <button type="button" onClick={handleClearAll}>❌ Clear All</button>
       </div>
-
+     <div className=" section-card">
       <div className="checklist-grid">
         {checklistItems.map((label, idx) => (
           <div key={idx} className="checklist-item">
-            <span>{label}</span>
-            <span>
+            <div className="checklist-label-container">{label}</div>
+            <div className="checklist-ok-container">
               <label>
-                <input type="radio" name={`check-${idx}`} checked={checkedValues[idx] === 'OK'} onChange={() => handleChange(idx, 'OK')} /> OK
+                <input
+                  type="radio"
+                  name={`check-${idx}`}
+                  checked={checkedValues[idx] === 'OK'}
+                  onChange={() => handleChange(idx, 'OK')}
+                /> 
+                <span className="ok-label">OK</span>
               </label>
+              </div>
+              <div className="checklist-notok-container">
               <label>
-                <input type="radio" name={`check-${idx}`} checked={checkedValues[idx] === 'Not OK'} onChange={() => handleChange(idx, 'Not OK')} /> Not OK
+                <input
+                  type="radio"
+                  name={`check-${idx}`}
+                  checked={checkedValues[idx] === 'Not OK'}
+                  onChange={() => handleChange(idx, 'Not OK')}
+                />  
+                <span className="notok-label">Not OK</span>
               </label>
-            </span>
+            </div>
           </div>
         ))}
       </div>
 
-      <div className="info-section">
+      {/* Info Section */}
+     <div className="section-card info-section">
         <label>अन्य सूचना:</label>
-        <textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="यहां लिखें या माइक का उपयोग करें" />
-        <button type="button" onClick={handleNoteMicInput}>🎤 माइक से बोले</button>
+        <textarea
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="यहां लिखें या माइक का उपयोग करें"
+        />
+        <button type="button" className="mic-btn" onClick={handleNoteMicInput}>
+          🎤 माइक से बोले
+        </button>
       </div>
 
-      <div className="checkbox-line">
+      {/* Repair Section */}
+      <div className="section-card checkbox-line">
         <span>आवश्यक रिपेरिंग की सूचना सुपरवाइज़र को दी:</span>
         <label>
-          <input type="radio" name="repairReported" value="yes" checked={repairReported === 'yes'} onChange={() => setRepairReported('yes')} /> हां
+          <input
+            type="radio"
+            name="repairReported"
+            value="yes"
+            checked={repairReported === 'yes'}
+            onChange={() => setRepairReported('yes')}
+          /> हां
         </label>
         <label>
-          <input type="radio" name="repairReported" value="no" checked={repairReported === 'no'} onChange={() => setRepairReported('no')} /> नहीं
+          <input
+            type="radio"
+            name="repairReported"
+            value="no"
+            checked={repairReported === 'no'}
+            onChange={() => setRepairReported('no')}
+          /> नहीं
         </label>
 
         <label>
           मैकेनिकल डिपार्टमेंट PIN:
-          <input type="password" maxLength="6" inputMode="numeric" value={mechanicPin} onChange={(e) => setMechanicPin(e.target.value)} />
+          <input
+            type="password"
+            maxLength="6"
+            inputMode="numeric"
+            value={mechanicPin}
+            onChange={(e) => setMechanicPin(e.target.value)}
+          />
         </label>
 
         <label>
           ड्राइवर PIN:
-          <input type="password" maxLength="6" inputMode="numeric" value={driverPin} onChange={(e) => setDriverPin(e.target.value)} />
+          <input
+            type="password"
+            maxLength="6"
+            inputMode="numeric"
+            value={driverPin}
+            onChange={(e) => setDriverPin(e.target.value)}
+          />
         </label>
       </div>
 
-      <div className="dumper-trip-report">
-        <div className="section-title">डम्पर ट्रिप रिपोर्ट</div>
+      {/* Dumper Trip Report */}
+      <div className="section-card dumper-trip-report">
+        <div className="section-title">🚛 डम्पर ट्रिप रिपोर्ट</div>
         <div className="input-grid">
           <div>
             <label htmlFor="tripDate">दिनांक:</label>
-            <input id="tripDate" type="text" value={tripDetails.tripDate} onChange={handleTripChange} readOnly />
+            <input id="tripDate" type="text" value={tripDetails.tripDate} readOnly />
           </div>
 
           <div>
@@ -176,42 +233,47 @@ const StartYourDaySection = ({
           <div>
             <label htmlFor="relay">रिले:</label>
             <input id="relay" type="text" value={tripDetails.relay} onChange={handleTripChange} />
-            <button type="button" onClick={() => handleMicInput('relay', 'text')}>🎤</button>
+            <button type="button" className="mic-btn" onClick={() => handleMicInput('relay', 'text')}>🎤</button>
           </div>
 
           <div>
             <label htmlFor="driverName">ड्राइवर का नाम:</label>
-            <input id="driverName" type="text" value={tripDetails.driverName} onChange={handleTripChange} readOnly />
+            <input id="driverName" type="text" value={tripDetails.driverName} readOnly />
           </div>
 
           <div>
             <label htmlFor="dumperNumber">डंपर संख्या:</label>
             <input id="dumperNumber" type="text" value={tripDetails.dumperNumber} onChange={handleTripChange} />
-            <button type="button" onClick={() => handleMicInput('dumperNumber', 'alphanumeric')}>🎤</button>
+            <button type="button" className="mic-btn" onClick={() => handleMicInput('dumperNumber', 'alphanumeric')}>🎤</button>
           </div>
 
           <div>
             <label htmlFor="operatorId">ऑपरेटर ID:</label>
-            <input id="operatorId" type="text" value={tripDetails.operatorId} onChange={handleTripChange} readOnly />
+            <input id="operatorId" type="text" value={tripDetails.operatorId} readOnly />
           </div>
 
           <div>
             <label htmlFor="startHMR">स्टार्टिंग HMR:</label>
             <input id="startHMR" type="text" value={tripDetails.startHMR} onChange={handleTripChange} />
-            <button type="button" onClick={() => handleMicInput('startHMR', 'number')}>🎤</button>
+            <button type="button" className="mic-btn" onClick={() => handleMicInput('startHMR', 'number')}>🎤</button>
           </div>
 
           <div>
             <label htmlFor="startKM">स्टार्टिंग किलोमीटर:</label>
             <input id="startKM" type="text" value={tripDetails.startKM} onChange={handleTripChange} />
-            <button type="button" onClick={() => handleMicInput('startKM', 'number')}>🎤</button>
+            <button type="button" className="mic-btn" onClick={() => handleMicInput('startKM', 'number')}>🎤</button>
           </div>
         </div>
       </div>
 
+      {/* Save Button */}
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <button onClick={handleSubmitStartForm} style={{ padding: '10px 20px', fontSize: '16px' }}>💾 फॉर्म सेव करें</button>
+        <button className="submit-btn" onClick={handleSubmitStartForm}>
+          💾 फॉर्म सेव करें
+        </button>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

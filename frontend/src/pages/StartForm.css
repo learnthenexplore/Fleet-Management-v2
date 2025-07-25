@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -212,5 +212,5 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  flex: 1 1 200px;
-}
+  flex: 1 1 100px;
+} */

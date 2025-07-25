@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './FullVehicleReportView.css';
 import axios from 'axios';
 import { BASE_URL } from '../config';
-import './FullVehicleReportView.css';
+ 
 const checklistLabels = [
   'पार्किंग ब्रेक', 'लाइट्स और हॉर्न', 'डैशबोर्ड',
   'लाइट्स वाइपर', 'साइंट बोर्ड', 'बैठक सीट/सुरक्षा बेल्ट',
@@ -115,21 +115,23 @@ const FullVehicleReportView = ({
         <div className="section-card">
           <h4>प्री-स्टार्ट चेकलिस्ट</h4>
           <div className="checklist-grid">
-            {checklistLabels.map((label, idx) => (
-              <div key={idx} className="checklist-item">
-                <span>{label}</span>
-                <span>
-                  <label>
-                    <input type="radio" checked={checklist?.[idx] === 'OK'} readOnly />
-                    <span className="ok-label">✔️ OK</span>
-                  </label>
-                  <label style={{ marginLeft: 12 }}>
-                    <input type="radio" checked={checklist?.[idx] === 'Not OK'} readOnly />
-                    <span className="notok-label">❌ Not OK</span>
-                  </label>
-                </span>
-              </div>
-            ))}
+              {checklistLabels.map((label, idx) => (
+                <div key={idx} className="checklist-item">
+                  <div className="checklist-label-container">{label}</div>
+                  <div className="checklist-ok-container">
+                    <label>
+                      <input type="radio" checked={checklist?.[idx] === 'OK'} readOnly />
+                      <span className="ok-label">OK</span>
+                    </label>
+                  </div>
+                  <div className="checklist-notok-container">
+                    <label>
+                      <input type="radio" checked={checklist?.[idx] === 'Not OK'} readOnly />
+                      <span className="notok-label">Not OK</span>
+                    </label>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
 
@@ -141,10 +143,10 @@ const FullVehicleReportView = ({
         <div className="section-card checkbox-line">
           <span>आवश्यक रिपेरिंग की सूचना सुपरवाइज़र को दी:</span>
           <label>
-            <input type="radio" checked={repairReported === 'yes'} readOnly /> हां
+            <input type="radio" checked={repairReported === 'yes'} readOnly />हां
           </label>
           <label>
-            <input type="radio" checked={repairReported === 'no'} readOnly /> नहीं
+            <input type="radio" checked={repairReported === 'no'} readOnly />नहीं
           </label>
           <label>
             मैकेनिकल डिपार्टमेंट PIN:
@@ -251,7 +253,7 @@ const FullVehicleReportView = ({
               {tripRows.map((row, i) => (
                 <tr key={i}>
                   <td>{i + 1}</td>
-                  <td>{convertToIST(row.startTime)}</td>
+                  <td>{new Date(row.startTime).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false })}</td>
                   <td>{row.machine}</td>
                   <td>{row.material}</td>
                   <td>{row.site}</td>

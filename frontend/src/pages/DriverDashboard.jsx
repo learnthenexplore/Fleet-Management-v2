@@ -192,7 +192,7 @@ const newRow = {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div  >
       {loading ? (
         'Loading…'
       ) : (
